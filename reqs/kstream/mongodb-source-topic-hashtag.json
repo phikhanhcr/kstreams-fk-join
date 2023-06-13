@@ -1,0 +1,28 @@
+{
+  "name": "mongodb-source-connector-topic-hashtags",
+  "config": {
+    "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+    "tasks.max": "1",
+    "mongodb.hosts": "rs0/mymongo:27017",
+    "mongodb.name": "name",
+    "database.include.list": "backend",
+    "snapshot.mode": "initial",
+    "signal.data.collection": "backend.signal1",
+    "behavior.on.null.values": "delete",
+    "errors.tolerance": "all",
+    "collection.include.list": "backend.topichashtags,backend.signal1",
+    "database.history.kafka.bootstrap.servers": "kafka:9092",
+    "transforms": "unwrap,ReplaceField,route,extractKey",
+    "transforms.extractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.extractKey.field": "id",
+    "transforms.unwrap.type": "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
+    "transforms.unwrap.array.encoding": "document",
+    "transforms.unwrap.delete.handling.mode": "none",
+    "transforms.unwrap.drop.tombstone": "true",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "transforms.route.replacement": "cdc_$3",
+    "transforms.ReplaceField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.ReplaceField.include": "_id,hash_tag_id,hash_tag_code,country,topic_id,topic_title,topic_level,topic_lang,priority,is_public"
+  }
+}

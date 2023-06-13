@@ -1,0 +1,48 @@
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/mongodb-source-connector-topics -d @reqs/kstream/mongodb-source-topic.json
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/mongodb-source-connector-topic-hashtags -d @reqs/kstream/mongodb-source-topic-hashtag.json
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/elasticsearch-sink-connector-topics -d @reqs/kstream/es-sink-topic.json
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/elasticsearch-sink-connector-topic-hashtags -d @reqs/kstream/es-kstream-topic.json
+
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/elasticsearch-sink-connector-topic-hashtags -d @reqs/kstream/es-sink-user.json
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/elasticsearch-sink-connector-topic-hashtags -d @reqs/kstream/es-sink-community-room.json
+
+
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/elasticsearch-sink-connector-topic-hashtags -d @reqs/kstream/es-sink-topic-with-topic-hashtag.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/es-sink-topic-with-topic-hashtag.json
+
+
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/es-kstream-topic.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/es-sink-topic.json
+
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/mongodb-source-topic.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/mongodb-source-topic-hashtag.json
+
+
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/mongodb-source-user.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/es-sink-user.json
+
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/mongodb-source-community-room.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/es-sink-community-room.json
+
+
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/elasticsearch-sink-connector-users -d @reqs/kstream/es-sink-user.json
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/mongodb-source-connector-users -d @reqs/kstream/es-sink-user.json
+
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/elasticsearch-sink-connector-community-rooms -d @reqs/kstream/es-sink-community-room.json
+curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/mongodb-source-connector-community-rooms -d @reqs/kstream/mongodb-source-community-room.json
+
+
+
+mvn clean package -f aggregator/pom.xml
+
+
+
+Cant not define each source connector with each signal collection.
+=>.....
+
+rm -rf kafka && rm -rf zookeeper && mkdir kafka && mkdir zookeeper && cd ./zookeeper && mkdir data && mkdir log && cd ..
+
+
+
+
+// nếu dùng riêng field signal

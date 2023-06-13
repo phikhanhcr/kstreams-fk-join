@@ -1,0 +1,28 @@
+{
+  "name": "elasticsearch-sink-connector-users",
+  "config": {
+    "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+    "tasks.max": "1",
+    "topics": "cdc_users",
+    "connection.url": "http://elasticsearch:9200",
+    "auto.create": "false",
+    "auto.evolve": "false",
+    "insert.mode": "upsert",
+    "delete.enabled": "true",
+    "pk.fields": "id",
+    "type.name": "",
+    "pk.mode": "record_key",
+    "schema.ignore": "true",
+    "schema.enabled": "false",
+    "transforms": "unwrap,extractKey,ReplaceField,dropPrefix",
+    "transforms.unwrap.type": "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
+    "transforms.unwrap.drop.tombstones": "true",
+    "transforms.extractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.extractKey.field": "id",
+    "transforms.dropPrefix.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.dropPrefix.regex": "cdc_(.*)",
+    "transforms.dropPrefix.replacement": "users",
+    "transforms.ReplaceField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.ReplaceField.include": "id,name,full_name,country,gender,level,avatar,audience_type,updated_at,created_at"
+  }
+}

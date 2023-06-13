@@ -1,0 +1,12 @@
+io/debezium/examples/kstreams/fkjoin/util/JsonObjectSerde$JsonDeserializer.class
+io/debezium/examples/kstreams/fkjoin/model/Topic.class
+io/debezium/examples/kstreams/fkjoin/model/TopicHashtag.class
+io/debezium/examples/kstreams/fkjoin/model/TopicWithTopicHashtags.class
+io/debezium/examples/kstreams/fkjoin/model/CustomerWithAddresses.class
+io/debezium/examples/kstreams/fkjoin/model/Customer.class
+io/debezium/examples/kstreams/fkjoin/model/Address.class
+io/debezium/examples/kstreams/fkjoin/streams/TopologyProducer.class
+io/debezium/examples/kstreams/fkjoin/util/JsonObjectSerde.class
+io/debezium/examples/kstreams/fkjoin/util/JsonObjectSerde$JsonSerializer.class
+io/debezium/examples/kstreams/fkjoin/model/TopicAndTopicHashtag.class
+io/debezium/examples/kstreams/fkjoin/model/AddressAndCustomer.class

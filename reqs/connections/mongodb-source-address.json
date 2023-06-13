@@ -1,0 +1,19 @@
+{
+  "name": "mongodb-source-connector-addresses",
+  "config": {
+    "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+    "tasks.max": "1",
+    "mongodb.hosts": "rs0/mymongo:27017",
+    "mongodb.name": "name",
+    "database.include.list": "backend",
+    "snapshot.mode": "initial",
+    "signal.data.collection": "backend.signa1l",
+    "collection.include.list": "backend.addresses,backend.signal1",
+    "database.history.kafka.bootstrap.servers": "kafka:9092",
+    "transforms": "route,unwrap",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "transforms.route.replacement": "cdc_$3",
+    "transforms.unwrap.type": "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState"
+  }
+}

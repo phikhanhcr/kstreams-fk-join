@@ -1,0 +1,29 @@
+{
+  "name": "mongodb-source-connector-topics",
+  "config": {
+    "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+    "tasks.max": "1",
+    "mongodb.hosts": "rs0/mymongo:27017",
+    "mongodb.name": "name",
+    "database.include.list": "backend",
+    "snapshot.mode": "initial",
+    "signal.data.collection": "backend.signal",
+    "behavior.on.null.values": "delete",
+    "errors.tolerance": "all",
+    "delete.enabled": "true",
+    "collection.include.list": "backend.topics,backend.signal",
+    "database.history.kafka.bootstrap.servers": "kafka:9092",
+    "transforms": "unwrap,ReplaceField,route,extractKey",
+    "transforms.extractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.extractKey.field": "id",
+    "transforms.unwrap.type": "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
+    "transforms.unwrap.array.encoding": "document",
+    "transforms.unwrap.delete.handling.mode": "none",
+    "transforms.unwrap.drop.tombstone": "true",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "transforms.route.replacement": "cdc_$3",
+    "transforms.ReplaceField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.ReplaceField.include": "_id,title,content,image,is_active,lang,type,level"
+  }
+}

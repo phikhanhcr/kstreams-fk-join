@@ -1,0 +1,26 @@
+{
+  "name": "mongodb-source-connector-users",
+  "config": {
+    "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+    "tasks.max": "1",
+    "mongodb.hosts": "rs0/mymongo:27017",
+    "mongodb.name": "name",
+    "database.include.list": "backend",
+    "snapshot.mode": "initial",
+    "signal.data.collection": "backend.signal",
+    "behavior.on.null.values": "delete",
+    "errors.tolerance": "all",
+    "collection.include.list": "backend.customers,backend.signal",
+    "database.history.kafka.bootstrap.servers": "kafka:9092",
+    "transforms": "unwrap,route,extractKey",
+    "transforms.extractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.extractKey.field": "id",
+    "transforms.unwrap.type": "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
+    "transforms.unwrap.array.encoding": "document",
+    "transforms.unwrap.delete.handling.mode": "none",
+    "transforms.unwrap.drop.tombstone": "true",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "transforms.route.replacement": "cdc_$3"
+  }
+}

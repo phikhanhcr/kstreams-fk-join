@@ -1,0 +1,80 @@
+version: '3.5'
+
+services:
+  # ksqldb-server:
+  #   image: confluentinc/cp-ksqldb-server
+  #   hostname: ksqldb-server
+  #   networks:
+  #     - db_stack_network
+  #   container_name: ksqldb-server
+  #   ports:
+  #     - "8088:8088"
+  #   environment:
+  #     KSQL_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+  #     KSQL_LISTENERS: http://0.0.0.0:8088/
+  #     KSQL_KSQL_SERVICE_ID: ksqldb-server_
+  zookeeper:
+    image: quay.io/debezium/zookeeper:${DEBEZIUM_VERSION}
+    ports:
+     - 2181:2181
+     - 2888:2888
+     - 3888:3888
+    networks:
+    - db_stack_network
+  kafka:
+    image: quay.io/debezium/kafka:${DEBEZIUM_VERSION}
+    ports:
+     - 9092:9092
+    links:
+     - zookeeper
+    environment:
+     - ZOOKEEPER_CONNECT=zookeeper:2181
+     - KAFKA_GROUP_MIN_SESSION_TIMEOUT_MS=100
+     # For local debugging of aggregator
+    #  - ADVERTISED_HOST_NAME=192.168.1.2
+    networks:
+    - db_stack_network
+  akhq:
+    image: tchiotludo/akhq
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kafka:9092"
+    ports:
+      - 8087:8080
+    networks:
+        - db_stack_network
+  connect:
+    build: ./debezium-elastic
+    container_name: connect-kafka
+    restart: always
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - 8083:8083
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_statuses
+    networks:
+      - db_stack_network
+  aggregator:
+    image: debezium-examples/kstreams-fk-join-aggregator:1.0
+    container_name: aggregator
+    build:
+      context: aggregator
+      dockerfile: src/main/docker/Dockerfile.${QUARKUS_MODE:-jvm}
+    environment:
+      QUARKUS_KAFKA_STREAMS_BOOTSTRAP_SERVERS: kafka:9092
+    networks:
+      - db_stack_network
+
+networks:
+  db_stack_network:
+    external: true
