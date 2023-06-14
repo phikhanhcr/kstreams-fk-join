@@ -15,9 +15,13 @@
     "pk.mode": "record_value",
     "schema.ignore": "true",
     "type.name": "",
-    "transforms": "dropPrefix",
+    "transforms": "dropPrefix,RenameField",
     "transforms.dropPrefix.type": "org.apache.kafka.connect.transforms.RegexRouter",
     "transforms.dropPrefix.regex": "cdc_(.*)",
-    "transforms.dropPrefix.replacement": "communityrooms"
+    "transforms.dropPrefix.replacement": "communityrooms",
+    "transforms.RenameField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.RenameField.renames": "_id:mongo_id",
+    "transforms.ReplaceField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.ReplaceField.include": "_id,topic_title,status,type,speakers,audiences,recommend_level,reminder_counter,start_at,schedule_at"
   }
 }

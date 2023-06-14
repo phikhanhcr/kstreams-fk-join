@@ -7,23 +7,21 @@
     "mongodb.name": "name",
     "database.include.list": "backend",
     "snapshot.mode": "initial",
-    "signal.data.collection": "backend.signal",
+    "signal.data.collection": "backend.signal1",
     "behavior.on.null.values": "delete",
     "errors.tolerance": "all",
     "delete.enabled": "true",
-    "collection.include.list": "backend.communityrooms,backend.signal",
+    "collection.include.list": "backend.communityrooms,backend.signal1",
     "database.history.kafka.bootstrap.servers": "kafka:9092",
-    "transforms": "unwrap,ReplaceField,route,extractKey",
+    "transforms": "unwrap,route,extractKey",
     "transforms.extractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
     "transforms.extractKey.field": "id",
     "transforms.unwrap.type": "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
-    "transforms.unwrap.array.encoding": "document",
+    "transforms.unwrap.array.encoding": "array",
     "transforms.unwrap.delete.handling.mode": "none",
     "transforms.unwrap.drop.tombstone": "true",
     "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
     "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
-    "transforms.route.replacement": "cdc_$3",
-    "transforms.ReplaceField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
-    "transforms.ReplaceField.include": "_id,topic_title,type,status"
+    "transforms.route.replacement": "cdc_$3"
   }
 }
