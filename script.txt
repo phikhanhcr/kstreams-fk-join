@@ -21,8 +21,8 @@ curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json"
 curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/mongodb-source-user.json
 curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/es-sink-user.json
 
-curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/mongodb-source-community-room.json
 curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/es-sink-community-room.json
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @reqs/kstream/mongodb-source-community-room.json
 
 
 curl -i -X DELETE -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/elasticsearch-sink-connector-users -d @reqs/kstream/es-sink-user.json

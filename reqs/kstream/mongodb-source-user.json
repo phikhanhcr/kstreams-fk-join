@@ -8,7 +8,7 @@
     "database.include.list": "backend",
     "snapshot.mode": "initial",
     "signal.data.collection": "backend.signal",
-    "collection.include.list": "backend.users,backend.signal",
+    "collection.include.list": "backend.users,backend.communityrooms,backend.signal",
     "database.history.kafka.bootstrap.servers": "kafka:9092",
     "transforms": "route",
     "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",

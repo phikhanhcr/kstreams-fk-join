@@ -9,20 +9,23 @@
     "auto.evolve": "false",
     "insert.mode": "upsert",
     "delete.enabled": "true",
-    "pk.fields": "id",
+    "key.ignore": "false",
     "type.name": "",
     "pk.mode": "record_key",
     "schema.ignore": "true",
     "schema.enabled": "false",
-    "transforms": "unwrap,extractKey,ReplaceField,dropPrefix",
+    "transforms": "unwrap,extractKey,ReplaceField,RenameField,dropPrefix",
     "transforms.unwrap.type": "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
     "transforms.unwrap.drop.tombstones": "true",
+    "transforms.unwrap.delete.handling.mode": "drop",
     "transforms.extractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
     "transforms.extractKey.field": "id",
     "transforms.dropPrefix.type": "org.apache.kafka.connect.transforms.RegexRouter",
     "transforms.dropPrefix.regex": "cdc_(.*)",
     "transforms.dropPrefix.replacement": "users",
     "transforms.ReplaceField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
-    "transforms.ReplaceField.include": "id,name,full_name,country,gender,level,avatar,audience_type,updated_at,created_at"
+    "transforms.ReplaceField.include": "_id,name,full_name,country,gender,level,avatar,audience_type,updated_at,created_at",
+    "transforms.RenameField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.RenameField.renames": "_id:mongo_id"
   }
 }
